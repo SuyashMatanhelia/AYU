@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AYU Five | Made to last. Promised in writing.</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --deep-ink: #0E3B47;
+      --ink-dark: #0A2E39;          /* logo tile colour */
+      --ayu-teal: #237A83;
+      --promise-gold: #C9A227;
+      --warm-cream: #F4EBD4;
+      --pale-mist: #DCE8EA;
+      --white: #FFFFFF;
+      --soft-cream: #FBF6E8;
+      --muted-ink: #42636B;
+      --border-gold: rgba(201, 162, 39, 0.38);
+      --shadow: 0 24px 70px rgba(14, 59, 71, 0.18);
+      --radius-xl: 32px;
+      --radius-lg: 22px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: "Inter", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(35, 122, 131, 0.16), transparent 30%),
+        linear-gradient(180deg, var(--warm-cream), #fffaf0 42%, var(--white));
+      color: var(--deep-ink);
+      line-height: 1.5;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img, svg { max-width: 100%; }
+
+    /* FIX: anchored sections no longer hide under the sticky header */
+    section[id] { scroll-margin-top: 96px; }
+
+    :focus-visible { outline: 3px solid var(--promise-gold); outline-offset: 3px; border-radius: 6px; }
+
+    .page-shell { width: min(1180px, calc(100% - 40px)); margin: 0 auto; }
+    .page-shell > *, .hero-grid > *, .product-grid > *, .care-grid > * { min-width: 0; }
+
+    .eyebrow {
+      font-family: "Sora", sans-serif;
+      font-size: 0.78rem;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: var(--ayu-teal);
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    .gold-pill {
+      display: inline-flex;
+      align-items: center;
+      background: linear-gradient(135deg, #d9bc55, var(--promise-gold));
+      color: var(--deep-ink);
+      padding: 9px 16px;
+      border-radius: 999px;
+      font-weight: 800;
+      box-shadow: 0 10px 24px rgba(201, 162, 39, 0.28);
+    }
+
+    .section { padding: 96px 0; }
+
+    .section-title {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(2rem, 4vw, 3.6rem);
+      line-height: 1.06;
+      letter-spacing: -0.03em;
+      word-spacing: 0.04em;
+      text-wrap: balance;
+      max-width: 820px;
+      margin-bottom: 18px;
+    }
+
+    .section-copy { max-width: 700px; color: var(--muted-ink); font-size: 1.08rem; }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      min-height: 48px;
+      padding: 0 22px;
+      border-radius: 999px;
+      font-weight: 800;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: transform .22s ease, box-shadow .22s ease, background .22s ease;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-sm { min-height: 42px; padding: 0 18px; font-size: .92rem; }
+    .btn-primary { background: var(--deep-ink); color: var(--white); box-shadow: 0 18px 32px rgba(14, 59, 71, .24); }
+    .btn-primary:hover { background: var(--ink-dark); }
+    .btn-secondary { background: rgba(255,255,255,.7); border-color: var(--border-gold); color: var(--deep-ink); }
+    .btn-secondary:hover { background: var(--white); box-shadow: 0 14px 28px rgba(14,59,71,.12); }
+
+    .fine-print { font-size: .78rem; color: rgba(14,59,71,.72); margin-top: 18px; font-weight: 700; }
+
+    /* ---------- Header ---------- */
+    .site-header {
+      position: sticky; top: 0; z-index: 100;
+      backdrop-filter: blur(18px);
+      background: rgba(244, 235, 212, .86);
+      border-bottom: 1px solid rgba(201,162,39,.25);
+    }
+    .nav {
+      width: min(1180px, calc(100% - 40px));
+      margin: 0 auto;
+      min-height: 76px;
+      display: flex; align-items: center; justify-content: space-between; gap: 24px;
+    }
+    .brand {
+      display: inline-flex; align-items: center; gap: 12px;
+      font-family: "Sora", sans-serif; font-weight: 800; font-size: 1.55rem; letter-spacing: -0.03em;
+    }
+    .logo-mark { width: 46px; height: 46px; display: block; flex: 0 0 auto; border-radius: 14px; box-shadow: 0 12px 26px rgba(14,59,71,.22); }
+
+    .nav-links { display: flex; align-items: center; gap: 28px; font-size: .92rem; font-weight: 700; }
+    .nav-links a { position: relative; padding: 4px 0; }
+    .nav-links a::after {
+      content: ""; position: absolute; left: 0; bottom: -2px; height: 2px; width: 0;
+      background: var(--promise-gold); transition: width .2s ease;
+    }
+    .nav-links a:hover::after { width: 100%; }
+
+    .nav-actions { display: flex; align-items: center; gap: 10px; }
+
+    .menu-toggle {
+      display: none; width: 44px; height: 44px; border-radius: 12px;
+      border: 1px solid var(--border-gold); background: rgba(255,255,255,.7);
+      cursor: pointer; align-items: center; justify-content: center; flex-direction: column; gap: 5px;
+    }
+    .menu-toggle span { display: block; width: 20px; height: 2px; background: var(--deep-ink); border-radius: 2px; }
+
+    /* ---------- Hero ---------- */
+    .hero { padding: 72px 0 70px; }
+    .hero-grid { display: grid; grid-template-columns: 1.02fr .98fr; align-items: center; gap: 48px; }
+
+    .hero h1 {
+      font-family: "Sora", sans-serif;
+      /* FIX: smaller, looser type so words no longer merge */
+      font-size: clamp(2.6rem, 5vw, 4.6rem);
+      line-height: 1.04;
+      letter-spacing: -0.035em;
+      word-spacing: 0.08em;
+      text-wrap: balance;
+      margin: 22px 0 24px;
+    }
+    .hero h1 span { display: block; color: var(--ayu-teal); }
+
+    .hero-copy { font-size: 1.15rem; max-width: 580px; color: var(--muted-ink); margin-bottom: 28px; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 34px; }
+
+    .hero-proof-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; max-width: 620px; }
+    .proof-mini { background: rgba(255,255,255,.6); border: 1px solid rgba(201,162,39,.28); border-radius: 18px; padding: 16px 18px; }
+    .proof-mini strong { display: block; font-family: "Sora", sans-serif; font-size: 1.4rem; letter-spacing: -0.03em; }
+    .proof-mini span { font-size: .85rem; color: var(--muted-ink); font-weight: 700; line-height: 1.3; display: block; margin-top: 2px; }
+
+    /* FIX: fixed-size stage with explicit, non-colliding positions */
+    .hero-visual { position: relative; width: min(100%, 540px); height: 620px; margin-inline: auto; }
+
+    .phone-stage {
+      position: absolute; left: 150px; top: 30px; width: 260px; height: 530px;
+      border-radius: 40px; transform: rotate(-6deg);
+      background: linear-gradient(140deg, rgba(255,255,255,.2), transparent 28%), linear-gradient(155deg, #0d4f59, #062b35);
+      box-shadow: 0 48px 90px rgba(14,59,71,.26);
+      border: 1px solid rgba(255,255,255,.24);
+    }
+    .phone-stage::before { content: ""; position: absolute; inset: 14px; border-radius: 30px; border: 1px solid rgba(255,255,255,.16); pointer-events: none; }
+    .phone-camera {
+      position: absolute; top: 30px; left: 28px; width: 70px; height: 134px; border-radius: 26px;
+      background: rgba(3,24,30,.62); border: 1px solid rgba(255,255,255,.16);
+      display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 14px;
+    }
+    .lens { width: 38px; height: 38px; border-radius: 50%; background: radial-gradient(circle at 38% 34%, #dce8ea 0 3px, #123d46 4px 12px, #051b22 13px); box-shadow: inset 0 0 0 2px rgba(255,255,255,.13); }
+    .phone-brand { position: absolute; bottom: 34px; left: 30px; font-family: "Sora", sans-serif; color: rgba(255,255,255,.4); font-weight: 700; letter-spacing: .1em; }
+
+    .promise-card {
+      position: absolute; right: 0; bottom: 30px; width: 280px; z-index: 3;
+      padding: 24px; border-radius: 22px; transform: rotate(4deg);
+      background: linear-gradient(135deg, rgba(255,255,255,.08), transparent), #111b1f;
+      color: var(--white); box-shadow: var(--shadow); border: 1px solid rgba(201,162,39,.42);
+    }
+    .promise-card h3 { font-family: "Sora", sans-serif; color: #e4c867; font-size: 1.4rem; line-height: 1.12; letter-spacing: -0.02em; margin-bottom: 12px; }
+    .promise-card p { font-size: .86rem; color: rgba(255,255,255,.8); margin-bottom: 12px; }
+    .promise-card small { display: block; font-size: .68rem; color: rgba(255,255,255,.62); border-top: 1px solid rgba(201,162,39,.3); padding-top: 10px; }
+
+    .floating-badge {
+      position: absolute; left: 0; top: 90px; width: 130px; z-index: 3;
+      padding: 16px; border-radius: 22px; background: rgba(255,255,255,.9);
+      border: 1px solid rgba(201,162,39,.32); box-shadow: 0 22px 50px rgba(14,59,71,.12);
+    }
+    .floating-badge strong { display: block; font-family: "Sora", sans-serif; font-size: 2.3rem; line-height: 1; color: var(--ayu-teal); }
+    .floating-badge span { font-size: .82rem; font-weight: 800; color: var(--muted-ink); }
+
+    /* ---------- Proof bar ---------- */
+    .proof-bar { background: var(--deep-ink); color: var(--white); padding: 28px 0; border-block: 4px solid var(--promise-gold); }
+    .proof-bar-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; }
+    .proof-stat strong { display: block; font-family: "Sora", sans-serif; color: var(--promise-gold); font-size: clamp(1.8rem, 3vw, 2.8rem); line-height: 1.05; letter-spacing: -0.04em; margin-bottom: 6px; }
+    .proof-stat span { color: rgba(255,255,255,.82); font-weight: 700; }
+
+    /* ---------- Cards ---------- */
+    .card { background: rgba(255,255,255,.68); border: 1px solid rgba(201,162,39,.28); border-radius: var(--radius-lg); box-shadow: 0 18px 48px rgba(14,59,71,.08); }
+    .feature-grid { margin-top: 40px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .feature-card { padding: 28px; }
+    .feature-icon { width: 54px; height: 54px; border-radius: 16px; background: var(--pale-mist); display: grid; place-items: center; margin-bottom: 20px; color: var(--ayu-teal); font-weight: 900; font-size: 1.25rem; border: 1px solid rgba(35,122,131,.2); font-family: "Sora", sans-serif; }
+    .feature-card h3 { font-family: "Sora", sans-serif; font-size: 1.35rem; letter-spacing: -0.02em; margin-bottom: 10px; }
+    .feature-card p { color: var(--muted-ink); }
+
+    /* ---------- Product ---------- */
+    .product-section { background: linear-gradient(180deg, rgba(220,232,234,.48), transparent); }
+    .product-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: 44px; align-items: center; }
+    .device-panel {
+      border-radius: var(--radius-xl); padding: 56px 38px; min-height: 560px;
+      background: linear-gradient(135deg, rgba(255,255,255,.58), transparent), var(--pale-mist);
+      border: 1px solid rgba(14,59,71,.12);
+      display: grid; place-items: center; position: relative;
+    }
+    .device-panel::before { content: ""; position: absolute; inset: 22px; border: 1px solid rgba(201,162,39,.42); border-radius: 26px; pointer-events: none; }
+    .phone-front {
+      width: 240px; height: 470px; border-radius: 38px; border: 9px solid #051f27; background: #082f39;
+      box-shadow: 0 28px 50px rgba(14,59,71,.3); position: relative; transform: rotate(3deg); overflow: hidden;
+    }
+    .phone-front::before { content: ""; position: absolute; top: 12px; left: 50%; width: 76px; height: 22px; border-radius: 999px; transform: translateX(-50%); background: #03171d; }
+    .phone-front::after { content: "AYU Five"; position: absolute; left: 0; right: 0; bottom: 28px; text-align: center; color: rgba(255,255,255,.85); font-family: "Sora", sans-serif; font-weight: 700; }
+    .screen-glow { position: absolute; inset: 60px 22px 70px; border-radius: 22px; background: radial-gradient(circle at 50% 20%, rgba(35,122,131,.9), transparent 45%), linear-gradient(180deg, rgba(201,162,39,.22), transparent); opacity: .75; }
+
+    .spec-list { margin-top: 26px; }
+    .spec-row { display: flex; justify-content: space-between; align-items: baseline; gap: 18px; padding: 16px 0; border-bottom: 1px solid rgba(14,59,71,.13); }
+    .spec-row strong { font-family: "Sora", sans-serif; font-size: 1rem; }
+    .spec-row span { color: var(--muted-ink); text-align: right; font-weight: 600; }
+
+    /* ---------- Repair prices ---------- */
+    .repair-grid { margin-top: 40px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; align-items: stretch; }
+    .price-card { padding: 30px; background: var(--white); border-radius: var(--radius-lg); border: 1px solid rgba(201,162,39,.36); }
+    /* FIX: featured card keeps its row alignment (no translateY) */
+    .price-card.featured { background: var(--deep-ink); color: var(--white); box-shadow: var(--shadow); border-color: var(--promise-gold); }
+    .price-card small { color: var(--ayu-teal); font-weight: 900; text-transform: uppercase; letter-spacing: .1em; }
+    .price-card.featured small { color: var(--promise-gold); }
+    .price-card h3 { font-family: "Sora", sans-serif; margin: 12px 0 14px; font-size: 1.35rem; letter-spacing: -0.02em; }
+    .price { font-family: "Sora", sans-serif; font-size: 3rem; color: var(--promise-gold); font-weight: 800; letter-spacing: -0.04em; margin-bottom: 12px; line-height: 1.1; }
+    .price-card p { color: var(--muted-ink); }
+    .price-card.featured p { color: rgba(255,255,255,.8); }
+
+    /* ---------- TCO ---------- */
+    .calculator { background: var(--deep-ink); color: var(--white); border-radius: var(--radius-xl); padding: 42px; display: grid; grid-template-columns: .9fr 1.1fr; gap: 36px; align-items: center; box-shadow: var(--shadow); }
+    .calculator h2 { font-family: "Sora", sans-serif; font-size: clamp(2rem, 4vw, 3.6rem); line-height: 1.05; letter-spacing: -0.04em; margin-bottom: 18px; }
+    .calculator p { color: rgba(255,255,255,.78); margin-bottom: 24px; }
+    .calc-panel { background: rgba(255,255,255,.08); border: 1px solid rgba(201,162,39,.35); border-radius: 24px; padding: 26px; }
+    .calc-comparison { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .calc-box { padding: 22px; border-radius: 18px; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.12); }
+    .calc-box.highlight { background: linear-gradient(135deg, rgba(201,162,39,.95), rgba(201,162,39,.75)); color: var(--deep-ink); }
+    .calc-box strong { display: block; font-family: "Sora", sans-serif; font-size: 2.2rem; line-height: 1.05; letter-spacing: -0.04em; margin-bottom: 8px; }
+    .calc-box span { font-weight: 800; }
+    .bar-chart { margin: 26px 0 40px; display: flex; align-items: flex-end; gap: 12px; height: 150px; border-bottom: 1px solid rgba(255,255,255,.25); }
+    .bar { flex: 1; border-radius: 12px 12px 0 0; position: relative; }
+    .bar.gold { background: var(--promise-gold); }
+    .bar.teal { background: var(--ayu-teal); }
+    .bar span { position: absolute; top: calc(100% + 8px); left: 50%; transform: translateX(-50%); font-size: .74rem; color: rgba(255,255,255,.75); white-space: nowrap; }
+    .chart-note { font-size: .78rem; color: rgba(255,255,255,.6); margin: 0 !important; }
+
+    /* ---------- Exploded view (SVG) ---------- */
+    .exploded-wrap {
+      margin-top: 46px; padding: 40px; border: 1px solid var(--border-gold); border-radius: var(--radius-xl);
+      background: linear-gradient(90deg, rgba(35,122,131,.07) 1px, transparent 1px), linear-gradient(rgba(35,122,131,.07) 1px, transparent 1px), var(--soft-cream);
+      background-size: 38px 38px;
+    }
+    .exploded-head { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; margin-bottom: 18px; }
+    .exploded-head p { font-weight: 700; color: var(--muted-ink); font-size: .9rem; }
+    .swap-pill { background: var(--white); border: 1px solid var(--border-gold); padding: 10px 18px; border-radius: 999px; font-weight: 800; box-shadow: 0 12px 28px rgba(14,59,71,.1); }
+    .exploded-grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: 32px; align-items: center; }
+    .explode-svg { width: 100%; height: auto; display: block; }
+    .legend { list-style: none; display: grid; gap: 12px; }
+    .legend li { display: flex; gap: 14px; align-items: flex-start; background: rgba(255,255,255,.8); border: 1px solid rgba(201,162,39,.26); border-radius: 16px; padding: 14px 16px; }
+    .legend b { flex: 0 0 auto; width: 28px; height: 28px; border-radius: 50%; background: var(--deep-ink); color: var(--white); display: grid; place-items: center; font-size: .85rem; }
+    .legend strong { display: block; font-family: "Sora", sans-serif; font-size: .98rem; }
+    .legend span { color: var(--muted-ink); font-size: .9rem; }
+
+    /* ---------- Care points ---------- */
+    .care-grid { margin-top: 42px; display: grid; grid-template-columns: .95fr 1.05fr; gap: 26px; align-items: start; }
+    .map-card {
+      position: relative; aspect-ratio: 400 / 340; min-height: 320px; overflow: hidden;
+      border-radius: var(--radius-xl); border: 1px solid rgba(14,59,71,.1);
+      background: radial-gradient(circle at 28% 36%, rgba(35,122,131,.2), transparent 26%), radial-gradient(circle at 66% 66%, rgba(201,162,39,.16), transparent 28%), var(--pale-mist);
+    }
+    .map-roads { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .pin { position: absolute; transform: translate(-50%, -50%); width: 22px; height: 22px; border-radius: 50%; border: 4px solid var(--white); box-shadow: 0 8px 20px rgba(14,59,71,.25); }
+    .pin.gold { background: var(--promise-gold); }
+    .pin.teal { background: var(--ayu-teal); }
+    .pin-label {
+      position: absolute; top: 50%; left: calc(100% + 8px); transform: translateY(-50%);
+      background: var(--white); border-radius: 999px; padding: 4px 10px;
+      font-size: .74rem; font-weight: 800; white-space: nowrap; box-shadow: 0 6px 16px rgba(14,59,71,.12);
+    }
+    .pin-label.flip { left: auto; right: calc(100% + 8px); }
+    .map-legend { display: flex; flex-wrap: wrap; gap: 8px 20px; margin-top: 14px; font-size: .84rem; font-weight: 700; color: var(--muted-ink); }
+    .map-legend i { display: inline-block; width: 12px; height: 12px; border-radius: 50%; margin-right: 6px; vertical-align: -1px; }
+
+    .care-list { display: grid; gap: 14px; }
+    .care-item { padding: 22px; border-radius: 22px; background: rgba(255,255,255,.74); border: 1px solid rgba(201,162,39,.26); display: flex; gap: 16px; align-items: flex-start; }
+    .care-number { width: 38px; height: 38px; border-radius: 12px; background: var(--deep-ink); color: var(--white); display: grid; place-items: center; font-weight: 900; flex: 0 0 auto; }
+    .care-item h3 { font-family: "Sora", sans-serif; margin-bottom: 4px; font-size: 1.05rem; }
+    .care-item p { color: var(--muted-ink); }
+
+    /* ---------- Audience ---------- */
+    .audience-grid { margin-top: 40px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    .audience-card { padding: 24px; border-radius: 24px; background: var(--white); border: 1px solid rgba(201,162,39,.28); }
+    .audience-num { width: 48px; height: 48px; border-radius: 14px; background: linear-gradient(135deg, var(--ayu-teal), var(--deep-ink)); color: var(--white); display: grid; place-items: center; font-family: "Sora", sans-serif; font-weight: 700; margin-bottom: 18px; }
+    .audience-card h3 { font-family: "Sora", sans-serif; margin-bottom: 8px; letter-spacing: -0.02em; font-size: 1.1rem; }
+    .audience-card p { color: var(--muted-ink); font-size: .95rem; }
+
+    /* ---------- Terms / FAQ ---------- */
+    .terms-box { margin-top: 38px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+    .term-card { padding: 24px; background: rgba(255,255,255,.68); border: 1px solid rgba(201,162,39,.28); border-radius: 22px; }
+    .term-card h3 { font-family: "Sora", sans-serif; margin-bottom: 8px; font-size: 1.1rem; }
+    .term-card p { color: var(--muted-ink); }
+    .faq-list { margin-top: 36px; display: grid; gap: 14px; max-width: 860px; }
+    details { background: var(--white); border: 1px solid rgba(201,162,39,.28); border-radius: 18px; padding: 20px 22px; }
+    summary { cursor: pointer; font-family: "Sora", sans-serif; font-weight: 700; }
+    details p { margin-top: 12px; color: var(--muted-ink); }
+
+    /* ---------- CTA + footer ---------- */
+    .final-cta {
+      background: radial-gradient(circle at 30% 20%, rgba(35,122,131,.32), transparent 28%), var(--deep-ink);
+      color: var(--white); border-radius: var(--radius-xl); padding: 60px;
+      display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: center; box-shadow: var(--shadow);
+    }
+    .final-cta h2 { font-family: "Sora", sans-serif; font-size: clamp(2rem, 4vw, 3.8rem); line-height: 1.05; letter-spacing: -0.035em; margin: 18px 0; text-wrap: balance; }
+    .final-cta p { color: rgba(255,255,255,.78); max-width: 680px; }
+    .final-cta .btn-primary { background: var(--promise-gold); color: var(--deep-ink); }
+
+    footer { margin-top: 40px; background: var(--deep-ink); color: var(--white); padding: 56px 0 28px; }
+    .footer-grid { display: grid; grid-template-columns: 1.2fr repeat(3, 1fr); gap: 36px; margin-bottom: 38px; }
+    .footer-grid h4 { font-family: "Sora", sans-serif; margin-bottom: 14px; color: var(--promise-gold); }
+    .footer-grid a, .footer-grid p { display: block; color: rgba(255,255,255,.74); margin-bottom: 9px; font-size: .95rem; }
+    .footer-grid .brand { color: var(--white); margin-bottom: 16px; display: inline-flex; font-size: 1.55rem; }
+    footer .fine-print { color: rgba(255,255,255,.62); }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,.14); padding-top: 22px; display: flex; justify-content: space-between; gap: 18px; flex-wrap: wrap; color: rgba(255,255,255,.64); font-size: .9rem; }
+
+    /* ---------- Responsive ---------- */
+    @media (max-width: 980px) {
+      .menu-toggle { display: flex; }
+      .nav-links {
+        display: none; position: absolute; top: 100%; left: 0; right: 0;
+        flex-direction: column; align-items: flex-start; gap: 0;
+        background: var(--warm-cream); padding: 8px 20px 16px; border-bottom: 1px solid var(--border-gold);
+      }
+      .nav-links.open { display: flex; }
+      .nav-links a { width: 100%; padding: 14px 0; border-bottom: 1px solid rgba(14,59,71,.08); }
+      .nav-links a::after { display: none; }
+
+      .hero-grid, .product-grid, .calculator, .care-grid, .final-cta, .exploded-grid { grid-template-columns: 1fr; }
+      .proof-bar-grid, .feature-grid, .repair-grid, .audience-grid, .terms-box, .footer-grid { grid-template-columns: repeat(2, 1fr); }
+      .final-cta { padding: 42px; }
+      .final-cta .btn { justify-self: start; }
+    }
+
+    @media (max-width: 660px) {
+      .page-shell, .nav { width: min(100% - 26px, 1180px); }
+      .section { padding: 72px 0; }
+      .hero { padding-top: 48px; }
+      .hero-proof-strip, .proof-bar-grid, .feature-grid, .repair-grid, .calc-comparison, .audience-grid, .terms-box, .footer-grid { grid-template-columns: 1fr; }
+      .hero-actions .btn { width: 100%; }
+
+      /* Hero stage re-laid for small screens */
+      .hero-visual { width: min(100%, 360px); height: 540px; }
+      .phone-stage { left: 96px; top: 20px; width: 214px; height: 436px; border-radius: 34px; }
+      .phone-camera { top: 22px; left: 20px; width: 58px; height: 112px; border-radius: 22px; gap: 10px; }
+      .lens { width: 30px; height: 30px; }
+      .promise-card { width: 236px; padding: 18px; bottom: 14px; }
+      .promise-card h3 { font-size: 1.15rem; }
+      .promise-card p { font-size: .8rem; }
+      .floating-badge { width: 86px; padding: 12px; top: 56px; }
+      .floating-badge strong { font-size: 1.7rem; }
+      .floating-badge span { font-size: .7rem; }
+
+      .device-panel { padding: 48px 20px; min-height: 0; }
+      .calculator, .exploded-wrap { padding: 24px; }
+      .final-cta { padding: 28px; }
+      .spec-row { flex-direction: column; gap: 4px; }
+      .spec-row span { text-align: left; }
+      .footer-bottom { flex-direction: column; }
+      .pin-label { font-size: .66rem; padding: 3px 8px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .btn { transition: none; }
+    }
+  </style>
+</head>
+
+<body id="top">
+  <!-- AYU logo, drawn once as an SVG symbol and reused everywhere.
+       To use your real file instead, replace each <svg class="logo-mark"> with:
+       <img class="logo-mark" src="ayu-logo.png" alt="AYU logo"> -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <symbol id="ayu-logo" viewBox="0 0 100 100">
+      <rect width="100" height="100" rx="26" fill="#0A2E39"/>
+      <path d="M22 46 A30 30 0 1 1 52 76 H30 Q24 76 24 70" fill="none" stroke="#2A8C94" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+      <path fill="#FFFFFF" fill-rule="evenodd" d="M47 28 H57 L74 68 H63 L60 60 H44 L41 68 H30 Z M52 42 L56.2 52 H47.8 Z"/>
+    </symbol>
+  </svg>
+
+  <header class="site-header">
+    <nav class="nav" aria-label="Main navigation">
+      <a href="#top" class="brand" aria-label="AYU home">
+        <svg class="logo-mark" aria-hidden="true"><use href="#ayu-logo"/></svg>
+        <span>AYU</span>
+      </a>
+
+      <div class="nav-links" id="nav-links">
+        <a href="#phone">Phone</a>
+        <a href="#repair">Repair Prices</a>
+        <a href="#care">Care Points</a>
+        <a href="#terms">Promise Terms</a>
+        <a href="#faq">FAQ</a>
+      </div>
+
+      <div class="nav-actions">
+        <a href="#buy" class="btn btn-primary btn-sm">Buy Now</a>
+        <button class="menu-toggle" id="menu-toggle" aria-expanded="false" aria-controls="nav-links" aria-label="Open menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="page-shell hero-grid">
+        <div>
+          <div class="gold-pill">#5SaalPakka</div>
+          <h1>Made to last. <span>Promised in writing.</span></h1>
+          <p class="hero-copy">
+            AYU Five is built for people tired of vague repair bills, short battery life and replacement pressure.
+            Five years of care, written prices and a service promise you can actually read.
+          </p>
+
+          <div class="hero-actions">
+            <a href="#buy" class="btn btn-primary">Reserve AYU Five</a>
+            <a href="#repair" class="btn btn-secondary">See written repair prices</a>
+          </div>
+
+          <div class="hero-proof-strip" aria-label="AYU core promise numbers">
+            <div class="proof-mini"><strong>₹27,999</strong><span>Launch price</span></div>
+            <div class="proof-mini"><strong>1 free</strong><span>Battery swap, per promise terms</span></div>
+            <div class="proof-mini"><strong>48 hrs</strong><span>Repair or loaner</span></div>
+          </div>
+
+          <p class="fine-print">In eligible launch-city PIN codes. Full Terms on website.</p>
+        </div>
+
+        <div class="hero-visual" aria-label="AYU Five phone and written promise card">
+          <div class="floating-badge"><strong>5</strong><span>years of care</span></div>
+
+          <div class="phone-stage">
+            <div class="phone-camera"><div class="lens"></div><div class="lens"></div></div>
+            <div class="phone-brand">AYU</div>
+          </div>
+
+          <div class="promise-card">
+            <h3>Your 5-Year Written Promise</h3>
+            <p>1 free battery swap · Screen ₹3,999 · Battery ₹1,499 · Port ₹799 · Repair in 48 hrs or loaner</p>
+            <small>In eligible launch-city PIN codes. Full Terms on website.</small>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROOF BAR -->
+    <section class="proof-bar" aria-label="AYU proof-first claims">
+      <div class="page-shell proof-bar-grid">
+        <div class="proof-stat"><strong>₹3,999</strong><span>Screen replacement</span></div>
+        <div class="proof-stat"><strong>₹1,499</strong><span>Battery replacement</span></div>
+        <div class="proof-stat"><strong>₹799</strong><span>Charging port repair</span></div>
+        <div class="proof-stat"><strong>10 min</strong><span>Designed for battery swap speed</span></div>
+      </div>
+    </section>
+
+    <!-- WHY AYU -->
+    <section class="section">
+      <div class="page-shell">
+        <p class="eyebrow">Proof before promises</p>
+        <h2 class="section-title">A phone launch built around trust, not hype.</h2>
+        <p class="section-copy">
+          Clear numbers, simple terms and visible service design. No vague “best ever” claims and no manufactured urgency. Just the proof that matters.
+        </p>
+
+        <div class="feature-grid">
+          <article class="card feature-card">
+            <div class="feature-icon">₹</div>
+            <h3>Written repair prices</h3>
+            <p>Screen, battery and port costs are shown upfront so buyers know the cost of care before buying.</p>
+          </article>
+          <article class="card feature-card">
+            <div class="feature-icon">80%</div>
+            <h3>Battery-first ownership</h3>
+            <p>One free battery replacement if battery health falls below 80% within five years, subject to promise terms.</p>
+          </article>
+          <article class="card feature-card">
+            <div class="feature-icon">48</div>
+            <h3>Repair or loaner</h3>
+            <p>Repair within 48 hours or get a loaner phone, in eligible launch-city PIN codes.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRODUCT -->
+    <section class="section product-section" id="phone">
+      <div class="page-shell product-grid">
+        <div class="device-panel" aria-label="AYU Five device visual">
+          <div class="phone-front"><div class="screen-glow"></div></div>
+        </div>
+
+        <div>
+          <p class="eyebrow">AYU Five</p>
+          <h2 class="section-title">Engineered to stay useful for five years.</h2>
+          <p class="section-copy">
+            A durable build, modular service design and a care system that supports the phone long after launch month.
+          </p>
+
+          <div class="spec-list">
+            <div class="spec-row"><strong>Launch price</strong><span>₹27,999</span></div>
+            <div class="spec-row"><strong>No-cost EMI</strong><span>From ₹2,333/mo</span></div>
+            <div class="spec-row"><strong>Battery design</strong><span>Screw-fastened 6,000mAh module</span></div>
+            <div class="spec-row"><strong>Ownership promise</strong><span>Five years of written care terms</span></div>
+          </div>
+
+          <p class="fine-print">In eligible launch-city PIN codes. Full Terms on website.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- REPAIR PRICES -->
+    <section class="section" id="repair">
+      <div class="page-shell">
+        <p class="eyebrow">Written prices</p>
+        <h2 class="section-title">Repair costs you can see before you buy.</h2>
+        <p class="section-copy">
+          The most common repair worries, turned into visible numbers.
+        </p>
+
+        <div class="repair-grid">
+          <article class="price-card">
+            <small>Display care</small>
+            <h3>Screen replacement</h3>
+            <div class="price">₹3,999</div>
+            <p>A fixed number for one of the highest-anxiety smartphone repairs.</p>
+          </article>
+          <article class="price-card featured">
+            <small>Battery care</small>
+            <h3>Battery replacement</h3>
+            <div class="price">₹1,499</div>
+            <p>After your one free replacement if battery health falls below 80% within five years, subject to terms.</p>
+          </article>
+          <article class="price-card">
+            <small>Port care</small>
+            <h3>Charging port repair</h3>
+            <div class="price">₹799</div>
+            <p>A simple number for a common everyday failure point.</p>
+          </article>
+        </div>
+
+        <p class="fine-print">In eligible launch-city PIN codes. Full Terms on website.</p>
+      </div>
+    </section>
+
+    <!-- TCO -->
+    <section class="section" style="padding-top:0">
+      <div class="page-shell">
+        <div class="calculator">
+          <div>
+            <p class="eyebrow" style="color:#e2c85d;">Five-year ownership math</p>
+            <h2>About ₹15/day owned.</h2>
+            <p>Compare what a phone costs across the years you actually use it, not just the sticker price.</p>
+            <a href="#buy" class="btn btn-secondary">Join waitlist</a>
+          </div>
+
+          <div class="calc-panel">
+            <div class="calc-comparison">
+              <div class="calc-box"><strong>₹18/day</strong><span>₹19,999 phone, kept 3 years</span></div>
+              <div class="calc-box highlight"><strong>₹15/day</strong><span>AYU Five over 5 years</span></div>
+            </div>
+
+            <div class="bar-chart" role="img" aria-label="Illustrative chart: cost per day falls each year you keep the phone">
+              <div class="bar gold" style="height:100%"><span>Year 1</span></div>
+              <div class="bar teal" style="height:68%"><span>Year 2</span></div>
+              <div class="bar teal" style="height:50%"><span>Year 3</span></div>
+              <div class="bar teal" style="height:38%"><span>Year 4</span></div>
+              <div class="bar teal" style="height:30%"><span>Year 5</span></div>
+            </div>
+            <p class="chart-note">Illustrative: cost per day falls the longer you keep a phone.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPLODED VIEW -->
+    <section class="section" style="padding-top:0">
+      <div class="page-shell">
+        <p class="eyebrow">Easy repairability</p>
+        <h2 class="section-title">Designed so a battery swap is not a mystery.</h2>
+        <p class="section-copy">
+          Screw-fastened access, a modular battery and connector-first service mean fewer hidden repair surprises.
+        </p>
+
+        <div class="exploded-wrap">
+          <div class="exploded-head">
+            <p>Exploded view · AYU Five (illustrative)</p>
+            <span class="swap-pill">Swap in 10 minutes</span>
+          </div>
+
+          <div class="exploded-grid">
+            <!-- FIX: one SVG replaces absolutely positioned boxes, so nothing can overlap -->
+            <svg class="explode-svg" viewBox="0 0 560 520" role="img" aria-labelledby="exT exD">
+              <title id="exT">Exploded view of AYU Five</title>
+              <desc id="exD">Five stacked layers: back cover with four screws, 6,000mAh battery, frame, display glass, and mainboard with charging-port module.</desc>
+              <defs>
+                <linearGradient id="gTeal" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1A6370"/><stop offset="1" stop-color="#0A3540"/></linearGradient>
+                <linearGradient id="gSteel" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#DCE8EA"/><stop offset="1" stop-color="#9DB0B3"/></linearGradient>
+                <linearGradient id="gFrame" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1D2E34"/><stop offset="1" stop-color="#5C7176"/></linearGradient>
+                <radialGradient id="gScrew" cx=".35" cy=".35"><stop offset="0" stop-color="#fff"/><stop offset=".5" stop-color="#9AAAAD"/><stop offset="1" stop-color="#3A4D52"/></radialGradient>
+              </defs>
+
+              <!-- stack axis -->
+              <line x1="266" y1="30" x2="266" y2="500" stroke="#C9A227" stroke-width="1.5" stroke-dasharray="4 6" opacity=".6"/>
+
+              <!-- screw guide lines + screws -->
+              <g stroke="#C9A227" stroke-width="1.5" stroke-dasharray="3 4">
+                <line x1="135" y1="22" x2="135" y2="58"/><line x1="205" y1="22" x2="205" y2="58"/>
+                <line x1="335" y1="22" x2="335" y2="58"/><line x1="425" y1="22" x2="425" y2="58"/>
+              </g>
+              <g fill="url(#gScrew)" stroke="#3A4D52" stroke-width="1">
+                <circle cx="135" cy="16" r="6"/><circle cx="205" cy="16" r="6"/>
+                <circle cx="335" cy="16" r="6"/><circle cx="425" cy="16" r="6"/>
+              </g>
+
+              <!-- 1 Back cover -->
+              <g transform="translate(100 40) skewX(-25)">
+                <rect x="0" y="8" width="360" height="70" rx="18" fill="#0A3540"/>
+                <rect x="0" y="0" width="360" height="70" rx="18" fill="url(#gTeal)"/>
+                <text x="300" y="42" font-family="Sora, sans-serif" font-size="18" font-weight="700" fill="rgba(255,255,255,.55)" text-anchor="middle">AYU</text>
+              </g>
+
+              <!-- 2 Battery -->
+              <g transform="translate(165 150) skewX(-25)">
+                <rect x="196" y="-14" width="44" height="14" rx="4" fill="#C9A227"/>
+                <rect x="0" y="8" width="230" height="60" rx="14" fill="#6F8589"/>
+                <rect x="0" y="0" width="230" height="60" rx="14" fill="url(#gSteel)" stroke="#6F8589"/>
+                <text x="115" y="38" font-family="Sora, sans-serif" font-size="24" font-weight="800" fill="#0E3B47" text-anchor="middle">6,000mAh</text>
+              </g>
+
+              <!-- 3 Frame -->
+              <g transform="translate(100 250) skewX(-25)">
+                <rect x="0" y="8" width="360" height="70" rx="18" fill="#0F1C20"/>
+                <rect x="0" y="0" width="360" height="70" rx="18" fill="url(#gFrame)"/>
+                <rect x="40" y="16" width="280" height="38" rx="10" fill="rgba(0,0,0,.28)"/>
+              </g>
+
+              <!-- 4 Display glass -->
+              <g transform="translate(100 355) skewX(-25)">
+                <rect x="0" y="8" width="360" height="56" rx="16" fill="rgba(35,122,131,.28)"/>
+                <rect x="0" y="0" width="360" height="56" rx="16" fill="rgba(220,232,234,.7)" stroke="rgba(35,122,131,.5)"/>
+              </g>
+
+              <!-- 5 Mainboard + charging-port module -->
+              <g transform="translate(100 445) skewX(-25)">
+                <rect x="0" y="8" width="360" height="52" rx="14" fill="#052A33"/>
+                <rect x="0" y="0" width="360" height="52" rx="14" fill="url(#gTeal)"/>
+                <rect x="24" y="12" width="40" height="26" rx="5" fill="#0A2E39"/>
+                <rect x="80" y="12" width="26" height="26" rx="5" fill="#0A2E39"/>
+                <rect x="122" y="12" width="60" height="26" rx="5" fill="#C9A227" opacity=".85"/>
+                <rect x="262" y="10" width="72" height="30" rx="6" fill="#D5E0E2"/>
+              </g>
+
+              <!-- leader lines + numbered markers -->
+              <g stroke="#0E3B47" stroke-width="1.2" stroke-dasharray="2 4" opacity=".55">
+                <line x1="452" y1="75" x2="514" y2="75"/><line x1="392" y1="180" x2="514" y2="180"/>
+                <line x1="452" y1="285" x2="514" y2="285"/><line x1="455" y1="383" x2="514" y2="383"/>
+                <line x1="456" y1="471" x2="514" y2="471"/>
+              </g>
+              <g font-family="Inter, sans-serif" font-size="13" font-weight="800" fill="#fff" text-anchor="middle">
+                <circle cx="530" cy="75" r="13" fill="#0E3B47"/><text x="530" y="80">1</text>
+                <circle cx="530" cy="180" r="13" fill="#0E3B47"/><text x="530" y="185">2</text>
+                <circle cx="530" cy="285" r="13" fill="#0E3B47"/><text x="530" y="290">3</text>
+                <circle cx="530" cy="383" r="13" fill="#0E3B47"/><text x="530" y="388">4</text>
+                <circle cx="530" cy="471" r="13" fill="#0E3B47"/><text x="530" y="476">5</text>
+              </g>
+            </svg>
+
+            <ol class="legend">
+              <li><b>1</b><div><strong>Back cover</strong><span>Four captive screws. No heat gun, no adhesive.</span></div></li>
+              <li><b>2</b><div><strong>6,000mAh battery</strong><span>Screw-fastened with a modular connector and pull-tab.</span></div></li>
+              <li><b>3</b><div><strong>Frame</strong><span>Built for service, with clear access to every module.</span></div></li>
+              <li><b>4</b><div><strong>Display glass</strong><span>A separate layer, so a screen repair stays contained.</span></div></li>
+              <li><b>5</b><div><strong>Mainboard and port module</strong><span>The charging-port module is its own part.</span></div></li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CARE POINTS -->
+    <section class="section" id="care" style="padding-top:0">
+      <div class="page-shell">
+        <p class="eyebrow">Care Points</p>
+        <h2 class="section-title">Service that feels close, not hidden.</h2>
+        <p class="section-copy">
+          Doorstep pick-up and camp diagnostics in launch cities, with Care Points to walk into.
+        </p>
+
+        <div class="care-grid">
+          <div>
+            <!-- FIX: one clean route map; pins sit at fixed percentages, labels never overlap -->
+            <div class="map-card" role="img" aria-label="Illustrative map of launch cities Pune, Hyderabad and Bengaluru with Care Points and camps">
+              <svg class="map-roads" viewBox="0 0 400 340" preserveAspectRatio="none" aria-hidden="true">
+                <path d="M0 85H400M0 170H400M0 255H400M100 0V340M200 0V340M300 0V340" stroke="rgba(14,59,71,.07)" stroke-width="1" fill="none" vector-effect="non-scaling-stroke"/>
+                <g fill="none" stroke="rgba(14,59,71,.32)" stroke-width="2" stroke-dasharray="6 6" vector-effect="non-scaling-stroke">
+                  <path d="M96 136 C 170 120, 220 110, 272 102" vector-effect="non-scaling-stroke"/>
+                  <path d="M272 102 C 285 160, 270 220, 248 258" vector-effect="non-scaling-stroke"/>
+                  <path d="M96 136 C 120 200, 190 240, 248 258" vector-effect="non-scaling-stroke"/>
+                </g>
+              </svg>
+
+              <div class="pin teal" style="left:24%; top:40%"><span class="pin-label">Pune · Camp</span></div>
+              <div class="pin gold" style="left:68%; top:30%"><span class="pin-label flip">Hyderabad · Care Point</span></div>
+              <div class="pin teal" style="left:42%; top:66%"><span class="pin-label flip">Bengaluru · Camp</span></div>
+              <div class="pin gold" style="left:62%; top:76%"><span class="pin-label flip" style="top:auto;bottom:calc(100% + 6px);right:-30px;transform:none">Bengaluru · Care Point</span></div>
+            </div>
+
+            <div class="map-legend">
+              <span><i style="background:var(--promise-gold)"></i>Care Point</span>
+              <span><i style="background:var(--ayu-teal)"></i>Diagnostic camp</span>
+              <span>Illustrative. Final locations to be confirmed.</span>
+            </div>
+            <p class="fine-print">In eligible launch-city PIN codes. Full Terms on website.</p>
+          </div>
+
+          <div class="care-list">
+            <article class="care-item">
+              <div class="care-number">1</div>
+              <div><h3>Free 10-minute diagnostic camps</h3><p>Phone Health Check-up Camps at tech parks, campuses and community venues in launch cities.</p></div>
+            </article>
+            <article class="care-item">
+              <div class="care-number">2</div>
+              <div><h3>48-hour repair or loaner</h3><p>Practical reassurance for working professionals, parents and daily commuters.</p></div>
+            </article>
+            <article class="care-item">
+              <div class="care-number">3</div>
+              <div><h3>PIN-code eligibility check</h3><p>Check your PIN code before you buy, so there are no surprises about coverage.</p></div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- AUDIENCE -->
+    <section class="section" style="padding-top:0">
+      <div class="page-shell">
+        <p class="eyebrow">Built for India</p>
+        <h2 class="section-title">Different buyers. One promise.</h2>
+        <p class="section-copy">The same proof-first voice, with a different lead for each buyer.</p>
+
+        <div class="audience-grid">
+          <article class="audience-card"><div class="audience-num">01</div><h3>Working professionals</h3><p>Lead with cost-per-day, repair speed and no-cost EMI.</p></article>
+          <article class="audience-card"><div class="audience-num">02</div><h3>Adult children and parents</h3><p>Lead with reassurance: simple terms, written prices and Care Point guidance.</p></article>
+          <article class="audience-card"><div class="audience-num">03</div><h3>Students</h3><p>Lead with durability, daily cost and creator proof.</p></article>
+          <article class="audience-card"><div class="audience-num">04</div><h3>Gig workers</h3><p>Lead with low downtime, repair clarity and dependable battery care.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <!-- TERMS -->
+    <section class="section" id="terms" style="padding-top:0">
+      <div class="page-shell">
+        <p class="eyebrow">Promise terms</p>
+        <h2 class="section-title">The important conditions, stated clearly.</h2>
+        <p class="section-copy">Shown before checkout, in the box and in post-purchase messages.</p>
+
+        <div class="terms-box">
+          <article class="term-card"><h3>Battery condition</h3><p>One free battery replacement if battery health falls below 80% within five years, subject to full terms.</p></article>
+          <article class="term-card"><h3>Eligible PIN codes</h3><p>Repair timelines and loaner availability apply in eligible launch-city PIN codes.</p></article>
+          <article class="term-card"><h3>Repair timeline</h3><p>Repair within 48 hours or get a loaner phone.</p></article>
+          <article class="term-card"><h3>Approval status</h3><p>Proposed claims are subject to legal and operations approval before launch.</p></article>
+        </div>
+
+        <p class="fine-print">In eligible launch-city PIN codes. Full Terms on website.</p>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section" id="faq" style="padding-top:0">
+      <div class="page-shell">
+        <p class="eyebrow">Questions buyers will ask</p>
+        <h2 class="section-title">FAQ</h2>
+
+        <div class="faq-list">
+          <details>
+            <summary>What is the AYU Five written promise?</summary>
+            <p>A five-year ownership promise on battery, repair prices and repair time: one free battery replacement if health falls below 80%, fixed repair prices, and repair in 48 hours or a loaner, in eligible launch-city PIN codes.</p>
+          </details>
+          <details>
+            <summary>When do I get the free battery replacement?</summary>
+            <p>When battery health falls below 80% within five years, subject to the full promise terms.</p>
+          </details>
+          <details>
+            <summary>What do repairs cost?</summary>
+            <p>Screen ₹3,999, battery ₹1,499 (after the free replacement) and charging port ₹799.</p>
+          </details>
+          <details>
+            <summary>Where is 48-hour repair available?</summary>
+            <p>In eligible launch-city PIN codes. Check your PIN code before checkout.</p>
+          </details>
+          <details>
+            <summary>Is AYU Five a good phone for parents?</summary>
+            <p>It is designed with them in mind: simple terms, written prices and in-person Care Point guidance.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section" id="buy" style="padding-top:0">
+      <div class="page-shell">
+        <div class="final-cta">
+          <div>
+            <div class="gold-pill">#5SaalPakka</div>
+            <h2>Ready for a phone that stays useful longer?</h2>
+            <p>Join the AYU Five launch list for early access, launch-city camp updates and written promise terms.</p>
+          </div>
+          <a href="mailto:launch@ayu.example?subject=AYU Five Waitlist" class="btn btn-primary">Join Waitlist</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="page-shell">
+      <div class="footer-grid">
+        <div>
+          <a href="#top" class="brand" aria-label="AYU home">
+            <svg class="logo-mark" aria-hidden="true"><use href="#ayu-logo"/></svg>
+            <span>AYU</span>
+          </a>
+          <p>Made to last. Promised in writing.</p>
+          <p class="fine-print">In eligible launch-city PIN codes. Full Terms on website.</p>
+        </div>
+        <div>
+          <h4>Product</h4>
+          <a href="#phone">AYU Five</a>
+          <a href="#repair">Repair Prices</a>
+          <a href="#terms">Promise Terms</a>
+        </div>
+        <div>
+          <h4>Care</h4>
+          <a href="#care">Care Points</a>
+          <a href="#faq">FAQ</a>
+          <a href="#care">PIN-code check</a>
+        </div>
+        <div>
+          <h4>Launch</h4>
+          <a href="#buy">Join Waitlist</a>
+          <a href="#top">Creator Program</a>
+          <a href="#top">Press Kit</a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>© 2026 AYU Five. Concept website for launch communication.</span>
+        <span>Proposed claims subject to legal and operations approval.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu toggle
+    const toggle = document.getElementById('menu-toggle');
+    const links = document.getElementById('nav-links');
+    toggle.addEventListener('click', () => {
+      const open = links.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', open);
+      toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    });
+    links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      links.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+    }));
+  </script>
+</body>
+</html>
